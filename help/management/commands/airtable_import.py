@@ -2,6 +2,8 @@ from django.core.management.base import BaseCommand
 from help.models import Article
 import requests
 
+airtable_key = env("AIRTABLE_KEY")
+
 
 class Command(BaseCommand):
 
@@ -9,7 +11,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         url = "https://api.airtable.com/v0/appB8tJlSNDM6eeWt/HelpPage?maxRecords=150&view=Grid%20view%20en"
-        headers = {"Authorization": "Bearer keyt7MKFDGrXm3set"}
+        headers = {"Authorization": f"Bearer {airtable_key}"}
         res = requests.get(url, headers=headers)
 
         field_map = {
