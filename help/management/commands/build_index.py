@@ -3,11 +3,10 @@ from help.serializers import ArticleSearchSerializer
 from help.models import Article
 from rest_framework.renderers import JSONRenderer
 import requests
-import os
+from django.conf import settings
 
-
-url = os.environ.get("MELIA_URL")
-key = os.environ.get("MELIA_API_KEY")
+url = settings.get("MELIA_URL")
+key = settings.get("MELIA_API_KEY")
 
 
 def u(path):

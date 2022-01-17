@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+  </head>
+
+  <body>
+    <div>
+      <div id="searchbox"></div>
+      <div id="hits"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@meilisearch/instant-meilisearch/dist/instant-meilisearch.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
+    <script >
+const search = instantsearch({
+  indexName: 'articles',
+  searchClient: instantMeiliSearch(
+    '{{MELIA_API_URL}}',
+    'f63f5d0cfa4a742401f88a450eaa01e5f054554cf9324a2e7453cb91cc5d0bcc'
+  ),
+})
+
+search.addWidgets([
+  instantsearch.widgets.searchBox({
+    container: '#searchbox',
+  }),
+  instantsearch.widgets.hits({
+    container: '#hits',
+    templates: {
+      item: `
+        <div>
+          <div class="hit-name">
+            [[#helpers.highlight]]{ "attribute": "name" }[[/helpers.highlight]]
+          </div>
+        </div>
+      `,
+    },
+  }),
+])
+
+search.start()
+    </script>
+  </body>
+</html>
+
+{% comment %} <!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/vue@3.2.27/dist/vue.global.js"></script>
+  <body>
+    <div id="search">
+
+        <input type="text" v-model="search" />
+        <button type="button" @click="doSearch" >Search</button>
+
+        <pre>{{results}}</pre>
+    </div>
+
+<script src='https://cdn.jsdelivr.net/npm/meilisearch@latest/dist/bundles/meilisearch.umd.js'></script>
+<script>
+const client = new MeiliSearch({
+  // host: '{{MELIA_API_URL}}',
+  // apiKey: '{{MELIA_API_KEY}}',
+  host: "https://ms-fcc589b57cf6-156.saas-nyc.meili.dev",
+  "apiKey":
+})
+const INDEX = client.index('articles')
+
+const Search = {
+  delimiters: ['[[', ']]'],
+  data() {
+    return {
+      search: null,
+      results: {}
+    }
+  },
+  watch: {
+    search () { this.doSearch() }
+  },
+  methods: {
+    async doSearch () {
+      const search = await INDEX.search(this.search)
+      console.log(search)
+      this.results = search
+    }
+  }
+}
+
+Vue.createApp(Search).mount('#search')
+</script>
+
+  </body>
+</html> {% endcomment %}

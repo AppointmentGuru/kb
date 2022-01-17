@@ -32,6 +32,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "agkb.herokuapp.com",
     "help.appointmentguru.co",
+    "localhost",
+    "127.0.0.1",
 ]
 
 
@@ -141,3 +143,8 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+
+## Cust env:
+MELIA_URL = env("MELIA_URL")
+MELIA_API_KEY = env("MELIA_API_KEY")
