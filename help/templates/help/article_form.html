@@ -1,0 +1,21 @@
+{% extends 'layouts/base.html' %}
+{% load md2 %}
+
+{% block content %}
+<div class="grid grid-cols-2 gap-4">
+    <div>
+        <form action="{% url 'edit_article' article.id %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+        </form>
+    </div>
+    <div>
+        <article class="prose ma-10" >
+            <h1 class="text-2xl mt-10 my-4 text-gray-700 font-bold hover:text-gray-600" >{{article.title}}</h1>
+            <blockquote class="my-4 text-xl text-gray-700" >{{article.summary}}</blockquote>
+
+            <div class="mt-2 text-gray-600" >{{article.content|markdown}}</div>
+        </article>
+    </div>
+</div>
+{% endblock %}

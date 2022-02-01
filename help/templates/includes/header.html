@@ -1,0 +1,68 @@
+{% load kb %}
+{% header_items as items %}
+
+<div class="h-full w-full">
+    <!-- Code block starts -->
+    <nav role="navigation" class="bg-white shadow xl:block ">
+        <div class="mx-auto container px-6 py-2 xl:py-0">
+            <div class="flex items-center justify-between">
+                <div class="inset-y-0 left-0 flex items-center xl:hidden">
+                    <div class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-100 focus:outline-none transition duration-150 ease-in-out">
+                        <div class="visible xl:hidden">
+                            <ul class="p-2 border-r bg-white absolute rounded left-0 right-0 shadow mt-8 md:mt-8 hidden">
+                                {% for title, slug, alt_text in items %}
+                                <li class="flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none">
+                                    <div class="flex items-center">
+                                        <a href="/{{slug}}"
+                                           title="{{alt_text}}"
+                                           class="no-underline ml-2 font-bold">{{title}}</a>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+
+                <button class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 rounded-md flex w-full sm:w-auto items-center sm:items-stretch justify-end sm:justify-start">
+                    <div  class="flex items-center">
+                        <a href="/" title="AppointmentGuru help center" >
+                        {% comment %} <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/light-with-button-svg3.svg" alt="AppointmentGuru" /> {% endcomment %}
+                        <h2 class="sm:block text-base text-gray-700 font-bold leading-normal px-3">
+                            AppointmentGuru
+                            <small class="hidden lg:block" >Help Center</small>
+                        </h2>
+                        </a>
+                    </div>
+                </button>
+                <div class="flex">
+                    <div class="relative">
+                        <div class="text-gray-600 absolute ml-3 inset-0 m-auto lg:w-4 lg:h-4 md:w-6 md:h-6">
+                            <img class="text-gray-600 stroke-current icon icon-tabler icon-tabler-search" src="https://tuk-cdn.s3.amazonaws.com/can-uploader/horizontal-navigation-svg2.svg" alt="search" />
+                        </div>
+                        <input v-model="search" id="searchbox" type="text" placeholder="Search (press /)"
+                            class="lg:block border border-gray-200 focus:outline-none focus:border-indigo-700 w-64 rounded text-sm text-gray-800 pl-8 py-2" />
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="flex md:mr-6 xl:mr-16">
+                    {% for title, slug, alt_text in items %}
+                        <a href="{% url slug %}"
+                            title="{{alt_text}}"
+                            class="focus:text-indigo-700 border-b-2 border-transparent focus:border-indigo-700 flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out">
+                            <span class="mr-2">
+                                <img class="icon icon-tabler icon-tabler-grid" src="https://tuk-cdn.s3.amazonaws.com/can-uploader/light-with-button-svg4.svg" alt="{{title}}" />
+                            </span>
+                            {{title}}
+                        </a>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Code block ends -->
+</div>

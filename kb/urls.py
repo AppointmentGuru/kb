@@ -19,5 +19,21 @@ from help import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+
+    path("topics/", views.topics, name="topics"),
+    path("topics/<slug:slug>.html", views.topic, name="topic"),
+
+    path("courses/", views.courses, name="courses"),
+
+    path("faqs/", views.faqs, name="faqs"),
+    path("tag/<slug:slug>/", views.topics, name="tag"),
+
+    path("videos/", views.videos, name="videos"),
+    path("videos/<slug:slug>.html", views.videos, name="videos"),
+
+    path("<slug:slug>.html", views.article, name="article"),
+    path(
+        "article/edit/<int:pk>/", views.AuthorUpdateView.as_view(), name="edit_article"
+    ),
     path("", views.index, name="index"),
 ]

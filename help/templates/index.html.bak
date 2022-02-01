@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3.2.27/dist/vue.global.js"></script>
+  </head>
+
+  <body>
+        <div id="search" >
+            <div class="relative py-16 bg-gradient-to-b from-indigo-700 to-indigo-600 flex justify-center items-center" >
+                <div>
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-10 text-white">How can we help you?</h1>
+                    <div class="bg-indigo-800 rounded relative mt-6 lg:mt-14 py-4 pl-4 flex items-center w-full" >
+                        <div>
+                           <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/faq-3-svg1.svg" alt="search">
+                        </div>
+
+                            <input type="text"
+                              v-model="search"
+                              placeholder="Search for answers"
+                              class=" ml-4 w-full bg-transparent text-base leading-none text-white placeholder-white focus:outline-none" />
+                            <button type="button" @click="doSearch" >Search</button>
+
+                            {% comment %} <div>{{search}}</div>
+                            <pre>{{results}}</pre> {% endcomment %}
+
+                    </div>
+                </div>
+            </div>
+            <div class="container mx-auto py-9 flex flex-col items-center justify-center">
+                <div role="list" class="w-11/12 md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div role="listitem" class="focus:outline-none" >
+                        <a href="javascript:void(0)" class="bg-white focus:outline-none shadow-md flex items-center p-4 lg:p-8 cursor-pointer" >
+                            <div class="flex">
+                                <div>
+                                    <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/faq-3-svg2.svg" alt="setting">
+                                </div>
+                                <div class="ml-4" >
+                                    <p class="text-base font-medium leading-none text-gray-800">Getting Started</p>
+                                    <p class="text-xs lg:text-sm xl:text-base lg:leading-normal text-gray-600 mt-2 2xl:w-7/12">Get started fast with installation and theme setup instructions</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div role="listitem" class="focus:outline-none">
+                        <a href="javascript:void(0)" class="bg-white focus:outline-none shadow-md flex items-center p-4 lg:p-8 cursor-pointer">
+                            <div class="flex">
+                                <div>
+                                    <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/faq-3-svg3.svg" alt="Account">
+                                </div>
+                                <div class="ml-4" >
+                                    <p class="text-base font-medium leading-none text-gray-800">User Account</p>
+                                    <p class="text-xs lg:text-sm xl:text-base lg:leading-normal text-gray-600 mt-2 2xl:w-7/12">Get started fast with installation and theme setup instructions</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div role="listitem" class="focus:outline-none">
+                        <a href="javascript:void(0)" class="bg-white focus:outline-none shadow-md flex items-center p-4 lg:p-8 cursor-pointer">
+                            <div class="flex">
+                                <div>
+                                   <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/faq-3-svg4.svg" alt="Features">
+                                </div>
+                                <div class="ml-4" >
+                                    <p class="text-base font-medium leading-none text-gray-800">Product Features</p>
+                                    <p class="text-xs lg:text-sm xl:text-base lg:leading-normal text-gray-600 mt-2 2xl:w-7/12">Get started fast with installation and theme setup instructions</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div role="listitem" class="focus:outline-none" >
+                        <a href="javascript:void(0)" class="bg-white focus:outline-none shadow-md flex items-center p-4 lg:p-8 cursor-pointer">
+                            <div class="flex">
+                                <div>
+                                    <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/faq-3-svg5.svg" alt="Customization">
+                                </div>
+                                <div class="ml-4" >
+                                    <p class="text-base font-medium leading-none text-gray-800">Customization Options</p>
+                                    <p class="text-xs lg:text-sm xl:text-base lg:leading-normal text-gray-600 mt-2 2xl:w-7/12">Get started fast with installation and theme setup instructions</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div role="listitem" class="focus:outline-none">
+                        <a href="javascript:void(0)" class="bg-white focus:outline-none shadow-md flex items-center p-4 lg:p-8 cursor-pointer">
+                            <div class="flex">
+                                <div>
+                                   <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/faq-3-svg6.svg" alt="Gateways">
+                                </div>
+                                <div class="ml-4" >
+                                    <p class="text-base font-medium leading-none text-gray-800">Payment Gateways</p>
+                                    <p class="text-xs lg:text-sm xl:text-base lg:leading-normal text-gray-600 mt-2 2xl:w-7/12">Get started fast with installation and theme setup instructions</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div role="listitem" class="focus:outline-none">
+                        <a href="javascript:void(0)" class="bg-white focus:outline-none shadow-md flex items-center p-4 lg:p-8 cursor-pointer">
+                            <div class="flex">
+                                <div>
+                                   <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/faq-3-svg7.svg" alt="Security">
+                                </div>
+                                <div class="ml-4" >
+                                    <p class="text-base font-medium leading-none text-gray-800">Security Options</p>
+                                    <p class="text-xs lg:text-sm xl:text-base lg:leading-normal text-gray-600 mt-2 2xl:w-7/12">Get started fast with installation and theme setup instructions</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-9 md:mt-11 lg:mt-16">
+                    <div class="text-center" >
+                        <h1 class="text-3xl font-medium leading-loose text-gray-800">Didn’t find an answer?</h1>
+                        <p class="mx-4 md:mx-0 mb-4 text-base leading-none text-gray-600 mt-4">Our team is just an email away and ready to answer your questions</p>
+                    </div>
+                    <div role="list" aria-label="Our Team mates" class="flex flex-wrap items-center justify-around mt-2 ">
+                        <div role="listitem" class="focus:outline-none" class="flex flex-col items-center justify-center m-6" >
+                            <img src="https://i.ibb.co/zS3y67Q/Unsplash-Avatars-0000s-0019-analise-benevides-88w-Kdd-JTwp8-unsplash-1.png" alt="Display avatar of julia john" role="img">
+                            <p class="text-base font-semibold leading-none text-gray-800 mt-2">Julia John</p>
+                            <p class="text-base leading-none text-gray-600 mt-2">Designer</p>
+                        </div>
+                        <div role="listitem" class="focus:outline-none" class="flex flex-col items-center justify-center m-6" >
+                            <img src="https://i.ibb.co/vJSM2Ch/Unsplash-Avatars-0004s-0005-laurence-cruz-P7yvmaj-Pvk-M-unsplash.png" alt="Display avatar of Tom Koch" role="img" >
+                            <p class="text-base font-semibold leading-none text-gray-800 mt-2">Tom Koch</p>
+                            <p class="text-base leading-none text-gray-600 mt-2">Developer</p>
+                        </div>
+                        <div role="listitem" class="focus:outline-none" class="flex flex-col items-center justify-center m-6" >
+                            <img src="https://i.ibb.co/0tzwY54/Unsplash-Avatars-0004s-0012-tiffany-collins-Gsy-St-BSs-Yd0-unsplash.png" alt="Display avatar of Kera Ann" role="img">
+                            <p class="text-base font-semibold leading-none text-gray-800 mt-2">Kera Ann</p>
+                            <p class="text-base leading-none text-gray-600 mt-2">Designer</p>
+                        </div>
+                        <div role="listitem" class="focus:outline-none" class="flex flex-col items-center justify-center m-6" >
+                            <img src="https://i.ibb.co/DWMLC3n/Unsplash-Avatars-0004s-0013-sirio-w-Siku-Nio6-UY-unsplash.png" alt="Display Avatar of Glenn Jo" role="img">
+                            <p class="text-base font-semibold leading-none text-gray-800 mt-2">Glenn Jo</p>
+                            <p class="text-base leading-none text-gray-600 mt-2">Support</p>
+                        </div>
+                        <div role="listitem" class="focus:outline-none" class="flex flex-col items-center justify-center m-6" >
+                            <img src="https://i.ibb.co/vkHZYXY/Unsplash-Avatars-0004s-0029-azamat-zhanisov-4yh-Hhp-AMC3-U-unsplash.png" alt="Display avatar of Shing Co" role="img">
+                            <p class="text-base font-semibold leading-none text-gray-800 mt-2">Xhing Co</p>
+                            <p class="text-base leading-none text-gray-600 mt-2">Support</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-center items-center" >
+                        <button class="mt-4 md:mt-6 py-3 px-6 bg-indigo-800 hover:bg-indigo-700 rounded text-white text-center font-medium text-base focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-800">Contact us</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+<script>
+const client = new MeiliSearch({
+  // host: '{{MELIA_API_URL}}',
+  // apiKey: '{{MELIA_API_KEY}}',
+  host: "https://ms-fcc589b57cf6-156.saas-nyc.meili.dev",
+  "apiKey": 'f63f5d0cfa4a742401f88a450eaa01e5f054554cf9324a2e7453cb91cc5d0bcc'
+})
+const INDEX = client.index('articles') {% endcomment %}
+
+const Search = {
+  delimiters: ['[[', ']]'],
+  data() {
+    return {
+      search: 'ios',
+      results: {}
+    }
+  },
+  watch: {
+    search () { this.doSearch() }
+  },
+  methods: {
+    async doSearch () {
+      let data = {q: this.search}
+      let url = "https://ms-fcc589b57cf6-156.saas-nyc.meili.dev/indexes/articles/search"
+      let options = {
+        body: JSON.stringify(data),
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          'Authorization': 'Bearer f63f5d0cfa4a742401f88a450eaa01e5f054554cf9324a2e7453cb91cc5d0bcc',
+          'X-MEILI-API-KEY': 'f63f5d0cfa4a742401f88a450eaa01e5f054554cf9324a2e7453cb91cc5d0bcc'
+        }
+      }
+      let res = await fetch(url, options)
+      console.log(res)
+    },
+    async doMSearch () {
+      const search = await INDEX.search(this.search)
+      console.log(search)
+      this.results = search
+    }
+  }
+}
+
+Vue.createApp(Search).mount('#search')
+</script>
+
+
+    </body>
+</html>
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+  </head>
+
+  <body>
+    <div>
+      <div id="searchbox"></div>
+      <div id="hits"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@meilisearch/instant-meilisearch/dist/instant-meilisearch.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
+    <script >
+const search = instantsearch({
+  indexName: 'articles',
+  searchClient: instantMeiliSearch(
+    '{{MELIA_API_URL}}',
+    'f63f5d0cfa4a742401f88a450eaa01e5f054554cf9324a2e7453cb91cc5d0bcc'
+  ),
+})
+
+search.addWidgets([
+  instantsearch.widgets.searchBox({
+    container: '#searchbox',
+  }),
+  instantsearch.widgets.hits({
+    container: '#hits',
+    templates: {
+      item: `
+        <div>
+          <div class="hit-name">
+            [[#helpers.highlight]]{ "attribute": "name" }[[/helpers.highlight]]
+          </div>
+        </div>
+      `,
+    },
+  }),
+])
+
+search.start()
+    </script>
+  </body>
+</html> {% endcomment %}
+
+{% comment %} <!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/vue@3.2.27/dist/vue.global.js"></script>
+  <body>
+    <div id="search">
+
+        <input type="text" v-model="search" />
+        <button type="button" @click="doSearch" >Search</button>
+        <div>{{search}}</div>
+
+        <pre>{{results}}</pre>
+    </div>
+
+<script src='https://cdn.jsdelivr.net/npm/meilisearch@latest/dist/bundles/meilisearch.umd.js'></script>
+<script>
+const client = new MeiliSearch({
+  // host: '{{MELIA_API_URL}}',
+  // apiKey: '{{MELIA_API_KEY}}',
+  host: "https://ms-fcc589b57cf6-156.saas-nyc.meili.dev",
+  "apiKey": 'f63f5d0cfa4a742401f88a450eaa01e5f054554cf9324a2e7453cb91cc5d0bcc'
+})
+const INDEX = client.index('articles')
+
+const Search = {
+  delimiters: ['[[', ']]'],
+  data() {
+    return {
+      search: 'ios',
+      results: {}
+    }
+  },
+  watch: {
+    search () { this.doSearch() }
+  },
+  methods: {
+    async doSearch () {
+      let data = {q: this.search}
+      let url = "https://ms-fcc589b57cf6-156.saas-nyc.meili.dev/indexes/articles/search"
+      let options = {
+        body: JSON.stringify(data),
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          'Authorization': 'Bearer f63f5d0cfa4a742401f88a450eaa01e5f054554cf9324a2e7453cb91cc5d0bcc',
+          'X-MEILI-API-KEY': 'f63f5d0cfa4a742401f88a450eaa01e5f054554cf9324a2e7453cb91cc5d0bcc'
+        }
+      }
+      let res = await fetch(url, options)
+      console.log(res)
+    },
+    async doMSearch () {
+      const search = await INDEX.search(this.search)
+      console.log(search)
+      this.results = search
+    }
+  }
+}
+
+Vue.createApp(Search).mount('#search')
+</script>
+
+  </body>
+</html> {% endcomment %}

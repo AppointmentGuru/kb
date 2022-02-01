@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title >{{page_title}} | AppointmentGuru</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script src="https://unpkg.com/vue@3.2.27/dist/vue.global.js"></script>
+
+    {% block script %}{% endblock %}
+    <style>
+      pre {
+        background-color: #f1f1f1;
+      }
+      #search-results em { background-color: #FFFF8D; }
+    </style>
+  </head>
+
+  <body >
+  <div id="app" >
+    {% include 'includes/header.html' %}
+
+    {% comment %} style="margin-left:auto;margin-right:auto;" {% endcomment %}
+    <div id="search-results"
+      v-if="search && results && results.hits"
+      style="max-width:90%;"
+      class="prose grid gap-4 grid-cols-3 prose flex w-full mx-auto" >
+
+      <div class="prose col-span-full mt-5 full-width" >
+        <h3>
+          <button @click="search=null" class="float-right mr-4" >x</button>
+          Search results for [[search]]
+          <small class='text-xs text-gray-400 ml-3' >[[hits]] results returned in [[ms]]ms</small>
+        </h3>
+      </div>
+      <div class="prose col-span-full" ><hr/></div>
+
+      <div
+        v-for="hit in results.hits"
+        :key='hit.id'
+        class="block p-6 shadow-md hover:shadow-xl bg-white max-w-sm ma-4 grid-cols-4 full-width">
+        <a :href="`/${hit.slug}.html`" :title="hit.title" class="no-underline" >
+          <h5 v-html="hit._formatted.title" class="text-base text-black-800" ></h5>
+          <p class="text-gray-700 text-sm"
+            v-html="hit._formatted.summary" ></p>
+        </a>
+      </div>
+    </div><!-- /. end: search-results-->
+
+    <div class="container mx-auto" >
+      <div class="breadcrumb prose text-gray-700 text-sm pt-5 mx-auto" >
+      {% block breadcrumbs %}{% endblock %}
+      </div>
+      {% block content %}{% endblock %}
+    </div>
+
+    {% include 'includes/footer.html' %}
+  </div>
+
+
+<script >
+const URL = "https://ms-fcc589b57cf6-156.saas-nyc.meili.dev"
+const KEY = "f63f5d0cfa4a742401f88a450eaa01e5f054554cf9324a2e7453cb91cc5d0bcc"
+
+const Search = {
+  delimiters: ['[[', ']]'],
+  data() {
+    return {
+      search: '',
+      results: {}
+    }
+  },
+  // mounted () { this.doSearch() },
+  watch: {
+    search () { this.doSearch() }
+  },
+  computed: {
+    query () {
+      return {
+        q: this.search,
+        matches: true,
+        attributesToHighlight: [
+          'title',
+          'summary',
+          'content'
+        ]
+      }
+    },
+    url () {
+      return URL + '/indexes/articles/search'
+    },
+    key () { return KEY },
+    headers () {
+      return {
+        'Content-Type': 'application/json;charset=utf-8',
+        //  'Authorization': 'Bearer ' + KEY,
+        'X-MEILI-API-KEY': KEY
+      }
+    },
+    hits () {
+      if (this.results && this.results.nbHits) { return this.results.nbHits }
+      return 0
+    },
+    ms () {
+      if (this.results && this.results.processingTimeMs) { return this.results.processingTimeMs }
+      return 0
+    }
+  },
+  methods: {
+    async doSearch () {
+      let options = {
+        body: JSON.stringify(this.query),
+        method: 'post',
+        headers: this.headers
+      }
+      const res = await fetch(this.url, options)
+      this.results = await res.json();
+    }
+  }
+}
+
+Vue.createApp(Search).mount('#app')
+
+document.addEventListener('keyup', function (event) {
+  if (event.key === '/') {
+      var element = document.getElementById('searchbox').focus()
+  }
+});
+</script>
+
+  </body>
+</html>

@@ -3,10 +3,13 @@ from help.serializers import ArticleSearchSerializer
 from help.models import Article
 from rest_framework.renderers import JSONRenderer
 import requests
-from django.conf import settings
+import environ
 
-url = settings.get("MELIA_URL")
-key = settings.get("MELIA_API_KEY")
+env = environ.Env()
+environ.Env.read_env()
+
+url = env("MELIA_URL")
+key = env("MELIA_API_KEY")
 
 
 def u(path):
@@ -24,7 +27,7 @@ class Command(BaseCommand):
     help = "Build Meliasearch index"
 
     def handle(self, *args, **options):
-        requests.delete(u("/indexes/appointments"), headers=headers)
+        requests.delete(u("/indexes/articles"), headers=headers)
 
         articles = Article.objects.all()
         data = JSONRenderer().render(ArticleSearchSerializer(articles, many=True).data)

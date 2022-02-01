@@ -34,6 +34,7 @@ ALLOWED_HOSTS = [
     "help.appointmentguru.co",
     "localhost",
     "127.0.0.1",
+    "testserver",
 ]
 
 
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # 3rd party:
     "rest_framework",
+    "django_markdown2",
     # apps:
     "help",
 ]

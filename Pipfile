@@ -12,6 +12,7 @@ djangorestframework = "*"
 django-environ = "*"
 whitenoise = "*"
 gunicorn = "*"
+django-markdown2 = "*"
 
 [dev-packages]
 ipython = "*"
