@@ -9,6 +9,10 @@ def make_featured(modeladmin, request, queryset):
 def make_faq(modeladmin, request, queryset):
     queryset.update(faq=True)
 
+@admin.action(description='Needs an update')
+def mark_for_update(modeladmin, request, queryset):
+    queryset.update(update_required=True)
+
 @admin.action(description='Publish')
 def publish(modeladmin, request, queryset):
     queryset.update(published=True)
@@ -45,11 +49,12 @@ class ArticleAdmin(admin.ModelAdmin):
         "published",
         "faq",
         "update_required",
+        "categories",
     )
     search_fields = ("title", "summary",)
     ordering = ("order",)
 
-    actions = [make_faq, publish, unpublish]
+    actions = [make_faq, publish, unpublish, mark_for_update]
 
     inlines = [ArticleCategoryInline]
 
@@ -59,6 +64,14 @@ class ArticleAdmin(admin.ModelAdmin):
 
 class ArticleCategoryAdmin(admin.ModelAdmin):
     list_filter = ("featured",)
+    actions = [make_featured]
+    # list_display = (
+    #     "id",
+    #     "order",
+    #     "featured"
+    #     "category",
+    #     "article",
+    # )
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = (
