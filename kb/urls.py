@@ -26,7 +26,7 @@ urlpatterns = [
     path("courses/", views.courses, name="courses"),
 
     path("faqs/", views.faqs, name="faqs"),
-    path("tag/<slug:slug>/", views.topics, name="tag"),
+    path("tag/<slug:slug>/", views.tags, name="tags"),
 
     path("videos/", views.videos, name="videos"),
     path("videos/<slug:slug>.html", views.videos, name="videos"),

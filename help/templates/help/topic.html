@@ -15,9 +15,9 @@
     <blockquote class="my-4 text-xl text-gray-700" >{{topic.description}}</blockquote>
 
     <div class="prose mt-2 text-gray-600" >
-        <ul>
+
         {% for article in articles %}
-            <li>
+        <div>
                 <h3>
                     <a
                         href="{% url "article" article.article.slug %}"
@@ -28,14 +28,13 @@
                 <p>
                 {% for tag in article.article.tags %}
                 <a
-                    href="{% url "tag" tag|slugify %}"
+                    href="{% url "tags" tag|slugify %}"
                     title="{{tag}}"
                     class="mr-2 text-xs" >{{tag|upper}}<a/>
                 {% endfor %}
                 </p>
-            </li>
+        </div>
         {% endfor %}
-        </ul>
     </div>
 </article>
 {% endblock %}

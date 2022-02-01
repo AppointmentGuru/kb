@@ -56,6 +56,15 @@ def faqs(request, slug=None):
 
     return render(request, "help/article_list.html", context)
 
+def tags(request, slug=None):
+    articles = Article.objects.filter(tags__contains=[slug])
+    context = {
+        "page_title": f"Articles tagged with {slug}",
+        "articles": articles,
+    }
+
+    return render(request, "help/article_list.html", context)
+
 def topic(request, slug=None):
     topic = get_object_or_404(Category, slug=slug)
     context = {

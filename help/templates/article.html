@@ -42,7 +42,7 @@
 
     <div>
     {% for tag in article.tags %}
-        <a href="{% url "tag" tag|slugify %}" title="{{tag}}" class="mr-2 text-xs" >{{tag|upper}}<a/>{% endfor %}
+        <a href="{% url "tags" tag|slugify %}" title="{{tag}}" class="mr-2 text-xs" >{{tag|upper}}<a/>{% endfor %}
     </div>
 </article>
 {% endblock %}

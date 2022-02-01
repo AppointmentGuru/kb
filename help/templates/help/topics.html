@@ -12,9 +12,9 @@ Topics
         Topics
     </h1>
     <div class="mt-2 text-gray-600" >
-        <ul>
+
             {% for topic in topics %}
-            <li>
+            <div>
                 <h3><a href="{% url "topic" topic.slug %}" title="{{topic.title}}" >
                     {{topic.title}}</a>
                 </h3>
@@ -32,9 +32,9 @@ Topics
                         title="see all articles related tp {{topic.title}}"
                         class="mr-2 text-xs" >See all articles<a/>
                 </div>
-            </li>
+            </div>
             {% endfor %}
-        <ul>
+
     </div>
 </article>
 {% endblock %}
