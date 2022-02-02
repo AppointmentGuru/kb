@@ -70,7 +70,7 @@ def topic(request, slug=None):
     context = {
         "topic": topic,
         "page_title": topic.title,
-        "articles": topic.articlecategory_set.all(),
+        "articles": topic.articlecategory_set.all().order_by('-featured', 'order'),
     }
 
     return render(request, "help/topic.html", context)

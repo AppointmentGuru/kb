@@ -5,11 +5,11 @@
 <a href="{% url "index" %}" title="AppointmentGuru Knowledgebase home" >Home</a> /
 
 {% if article.categories.count > 0 %}
-    <a href = "{% url "topics" %}" title="Topics" >Topics</a>:
+    <a href = "{% url "topics" %}" title="Topics" >Topics</a>
+    {% if article.categories.count > 1 %}:{% else %}/{% endif %}
     {% for cat in article.categories.all %}
     <a href="{% url "topic" cat.slug %}" title = "{{cat.title}}" >
-        {{cat.title}}{% if not forloop.last %} | {% endif %}
-    </a>
+        {{cat.title}}</a>{% if not forloop.last %} | {% endif %}
     {% endfor %}
 {% endif %}
 / {{article.title}}
