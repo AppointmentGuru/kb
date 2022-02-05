@@ -2,14 +2,24 @@
 {% load md2 %}
 
 {% block breadcrumbs %}
-<a href="{% url "index" %}" title="AppointmentGuru Knowledgebase home" >Home</a> /
+<a href="{% url "index" %}" title="AppointmentGuru Knowledgebase home" class="mr-2" >Home</a> /
 Courses
 {% endblock %}
 
 {% block content %}
-<article class="prose ma-10" style="margin-left:auto;margin-right:auto;" >
-    <h1 class="text-2xl mt-10 my-4 text-gray-700 font-bold hover:text-gray-600" >
-        Coming soon
-    </h1>
-</article>
+{% comment %} <div class="grid grid-cols-1 mx-auto prose mt-10" > {% endcomment %}
+<div class="mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 prose mt-10" >
+  {% for course in courses %}
+  <div class="max-w rounded hover:shadow-2xl shadow-xl pb-5">
+    <img class="w-full"
+      src="{{course.cover_image}}"
+      alt="{{course.summary}}" >
+    <div class="mt-0 pl-2 mb-2">
+        <a href="{% url "courses" course.slug %}" title="{{ course.summary }}" class="no-underline" >
+          <h3 >{{ course.title }}</h3></a>
+        <p class="text-xs text-gray-600 mb-10" >{{course.summary}}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}

@@ -19,7 +19,7 @@
         {% for article in articles %}
         <div>
                 <h3>
-                    <a
+                    • <a
                         href="{% url "article" article.article.slug %}"
                         title="{{article.artcile.title}}" >
                     {{article.article.title}}</a>
@@ -30,7 +30,7 @@
                 <a
                     href="{% url "tags" tag|slugify %}"
                     title="{{tag}}"
-                    class="mr-2 text-xs" >{{tag|upper}}<a/>
+                    class="mr-2 text-xs" >{{tag|upper}}</a>
                 {% endfor %}
                 </p>
         </div>

@@ -1,0 +1,28 @@
+<h3>Course outline</h3>
+<div class="leading-7 space-y-6" >
+    <ul class="space-y-4 pl-0">
+    {% for chapter in course.chapters %}
+
+        <li class="flex items-center pr-0 {% if article.id == chapter.article.id %}bg-gray-800 py-2 rounded-full{% endif %}" >
+            <svg class="w-6 h-6 flex-none fill-sky-100 stroke-sky-500 stroke-2 mx-2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="11" />
+                <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
+            </svg>
+
+                <a href="{% url "chapter" course.slug chapter.article.slug %}"
+                    title="{{chapter.article.title}}"
+                    class="text-sm mt-0 no-underline {% if article.id == chapter.article.id %}text-white{% endif %}"
+                    title="{{ chapter.article.title }}" >
+                    {% comment %} <img class="ml-3 my-0 py-0 mx-2"
+                      alt="{{ chapter.article.title }}"
+                      align="right"
+                      src="https://cdn.tuk.dev/assets/templates/weCare/yt.png" /> {% endcomment %}
+                    {{chapter.article.title}}
+                </a>
+
+        </li>
+
+    {% endfor %}
+    </ul>
+</div>

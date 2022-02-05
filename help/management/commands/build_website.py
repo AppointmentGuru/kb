@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.urls.exceptions import NoReverseMatch
 from django.test import Client
-from help.models import Article
+from help.models import Article, CourseArticle
 from django.urls import reverse
 from help.templatetags.kb import header_items
 import os
@@ -20,31 +20,40 @@ def create_directory(dir):
 
 
 def write_file(filename, content):
-    with open(f"dist/{filename}", 'wb') as f:
+    with open(f"dist{filename}", 'wb') as f:
         f.write(content)
 
     indent = "\t" * (len(str.split("/")) -1)
     print(f"{indent}{filename}")
 
 
-def build_section(slug):
+def build_section(slug, with_index=True):
     path = reverse(slug)
     create_directory(f"./dist/{path}")
 
-    page = Client().get(path)
-    write_file(f"{slug}/index.html", page.content)
+    index = Client().get(path)
+    write_file(f"/{slug}/index.html", index.content)
 
-    if builder_context := page.context.get("builder_config"):
+    if builder_context := index.context.get("builder_config"):
         context_key = builder_context.get("item_context_key", "items")
         page_name = builder_context.get("page_name", slug)
         item_key =  builder_context.get("item_key", "slug")
-        items = page.context.get(context_key)
+        items = index.context.get(context_key)
 
         for item in items:
-            item_slug = getattr(item, item_key)
+            item_slug = getattr(item, item_key) if item_key is not None else item
             path = reverse(page_name, args=(item_slug,))
             page = Client().get(path)
             write_file(path, page.content)
+
+def course_chapters():
+    chapters = CourseArticle.objects.all()
+    for chapter in chapters:
+        create_directory(f"./dist/courses/{chapter.course.slug}/")
+        path = reverse("chapter", args=(chapter.course.slug, chapter.article.slug,))
+        page = Client().get(path)
+        write_file(path, page.content)
+
 
 class Command(BaseCommand):
 
@@ -55,6 +64,11 @@ class Command(BaseCommand):
         p = Client().get('/')
         write_file("index.html", p.content)
 
+        print("============")
+        print("Tags")
+        print("============")
+        build_section("tags")
+
         # sections:
         for title, slug, summary in header_items():
             print("============")
@@ -62,7 +76,7 @@ class Command(BaseCommand):
             print("============")
             build_section(slug)
 
-
+        course_chapters()
 
         articles = Article.objects.all()
 
@@ -77,7 +91,3 @@ class Command(BaseCommand):
                 write_file(f"{article.slug}.html", p.content)
             except NoReverseMatch:
                 print(f"Invalid slug: {article.slug}")
-
-
-
-

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from help.models import Article, Category, ArticleCategory
+from help.models import Article, Category, ArticleCategory, Course, CourseArticle
 
 @admin.action(description='Make featured')
 def make_featured(modeladmin, request, queryset):
@@ -26,10 +26,17 @@ class ArticleInline(admin.TabularInline):
     model = Article
     extra = 0
 
+
 class ArticleCategoryInline(admin.TabularInline):
     model = ArticleCategory
     extra = 0
     order = ('featured', 'order',)
+
+
+class ArticleCourseInline(admin.TabularInline):
+    model = CourseArticle
+    extra = 0
+    order = ('order',)
 
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -81,7 +88,21 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ("title", "summary",)
     inlines = [ArticleCategoryInline]
 
+
+class CourseAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "title",
+        "order",
+        "published",
+    )
+    search_fields = ("title", "summary",)
+    list_filter = ("published",)
+    inlines = [ArticleCourseInline]
+
+
 # Register your models here.
-admin.site.register(Article, ArticleAdmin)
+admin.site.register(Course, CourseAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(ArticleCategory, ArticleCategoryAdmin)
+admin.site.register(Article, ArticleAdmin)

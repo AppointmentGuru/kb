@@ -23,10 +23,14 @@ urlpatterns = [
     path("topics/", views.topics, name="topics"),
     path("topics/<slug:slug>.html", views.topic, name="topic"),
 
+    # path("courses/<slug:slug>/<chapter:slug>.html", views.course, name="chapter"),
+    path("courses/<slug:slug>/<slug:chapter>.html", views.chapter, name="chapter"),
+    path("courses/<slug:slug>.html", views.course, name="courses"),
     path("courses/", views.courses, name="courses"),
 
     path("faqs/", views.faqs, name="faqs"),
-    path("tag/<slug:slug>/", views.tags, name="tags"),
+    path("tags/", views.tags, name="tags"),
+    path("tags/<slug:slug>.html", views.tags, name="tags"),
 
     path("videos/", views.videos, name="videos"),
     path("videos/<slug:slug>.html", views.videos, name="videos"),

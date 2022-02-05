@@ -1,17 +1,9 @@
-{% extends 'layouts/base.html' %}
-{% load md2 %}
-{% load kb %}
-
-
-{% block content %}
-{% header_items_dict as items %}
-
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mx-5 md:mx-auto prose my-10" >
-  {% for item in items %}
-  <div class="max-w-sm rounded hover:shadow-2xl shadow-xl -mt-5">
+<div class="max-w-sm rounded hover:shadow-2xl shadow-xl -mt-5">
+    {% if image %}
     <img class="w-full"
       src="{{item.cover_image}}"
       alt="{{alt_txt}}" >
+    {% endif %}
     <div class="-mt-10 pl-2">
       <h2 class="white--text mb-3 pl-0">
         <a href="{% url item.slug %}" title="{{ item.description }}" class="no-underline" >
@@ -23,7 +15,3 @@
       </h2>
     </div>
   </div>
-  {% endfor %}
-</div>
-
-{% endblock %}

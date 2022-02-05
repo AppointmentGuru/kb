@@ -1,0 +1,41 @@
+{% extends 'layouts/base.html' %}
+{% load md2 %}
+{% load kb %}
+
+{% block breadcrumbs %}
+<a href="{% url "index" %}" title="AppointmentGuru Knowledgebase home" class="mr-2" >Home</a> /
+Tags
+{% endblock %}
+
+{% block content %}
+<article class="prose ma-10" style="margin-left:auto;margin-right:auto;" >
+    <h1 class="text-2xl mt-10 my-4 text-gray-700 font-bold hover:text-gray-600" >
+        Tags
+    </h1>
+    <div class="mt-2 text-gray-600" >
+
+            {% for tag in tags %}
+            <div>
+                <h3><a href="{% url "tags" tag %}" title="{{tag}}" >
+                    {{tag}}</a>
+                </h3>
+
+                <div>
+                {% articles_by_tag tag as articles %}
+                {% for article in articles %}
+                    • <a
+                        href="{% url "article" article.slug %}"
+                        title="{{article.title}}"
+                        class="mr-2 text-xs" >{{article.title}}</a>
+                {% endfor %}<br/>
+                    <a
+                        href="{% url "tags" tag %}"
+                        title="see all articles tagged with {{tag}}"
+                        class="mr-2 text-xs" >See all articles</a>
+                </div>
+            </div>
+            {% endfor %}
+
+    </div>
+</article>
+{% endblock %}

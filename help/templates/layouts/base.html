@@ -1,3 +1,4 @@
+{% load kb %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,16 +8,31 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
     <script src="https://unpkg.com/vue@3.2.27/dist/vue.global.js"></script>
 
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <meta content="{{page_keywords}}" name="keywords" >
+    <meta content="{{page_description}}" name="description" >
+
+    <meta property="og:title" content="{{page_title}}" />
+    <meta property="og:type" content="{{page_type}}" />
+    {% comment %} <meta property="og:url" content="https://www.webtrainingroom.com/html/head" />  {% endcomment %}
+    {% comment %} <meta property="og:image" content="{{page_image}}" /> {% endcomment %}
+
+    {% comment %} <meta property="og:description" content="{{page_description}}" />
+    <meta name="twitter:description" content="{{page_description}}" /> {% endcomment %}
+
+    <link
+      href="https://ik.imagekit.io/appointmentguru/brand/practitioner_icon_30x30.png"
+      rel="icon" type="image/x-icon" >
+
     {% block script %}{% endblock %}
     <style>
-      pre {
-        background-color: #f1f1f1;
-      }
+      pre { background-color: #f1f1f1; }
       #search-results em { background-color: #FFFF8D; }
     </style>
   </head>
 
   <body >
+
   <div id="app" >
     {% include 'includes/header.html' %}
 
@@ -38,23 +54,75 @@
       <div
         v-for="hit in results.hits"
         :key='hit.id'
-        class="block p-6 shadow-md hover:shadow-xl bg-white max-w-sm ma-4 grid-cols-4 full-width">
+        class="block p-6 shadow-md hover:shadow-xl bg-white max-w-sm ma-4 grid-cols-1 md:grid-cols-4 full-width">
         <a :href="`/${hit.slug}.html`" :title="hit.title" class="no-underline" >
-          <h5 v-html="hit._formatted.title" class="text-base text-black-800" ></h5>
+          <h5 class="text-base text-black-800" >
+            #<span v-html="hit.id" />.
+            <span v-html="hit._formatted.title" />
+          </h5>
           <p class="text-gray-700 text-sm"
             v-html="hit._formatted.summary" ></p>
         </a>
       </div>
     </div><!-- /. end: search-results-->
 
-    <div class="container mx-auto" >
-      <nav class="prose text-gray-600 mx-auto text-md border-solid border-b-2 border-gray-500" >
+    <!-- Page header -->
+    <div class="bg-gray-100 -mt-2 border-t-2 border-b-1 border-gray-300" >
+
+      <div class="prose py-5 mt-0 md:mt-2 px-3 md:mx-auto" >
+        <div>
+            <h1 class="leading-tight mb-0" >{{page_title}}</h1>
+            <p role="navigation"
+              aria-label="breadcrumbs"
+              class="flex flex-wrap items-center text-indigo-700 text-xs pl-1 pt-0 mt-1">
+                {% block breadcrumbs %}{% endblock %}
+            </p>
+        </div>
+        <p class="text-sm text-grey-600" >{{page_description}}</p>
+        {% comment %} <div class="mt-6 md:mt-0">
+            <button class="mr-3 bg-gray-200 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out rounded hover:bg-gray-300 text-indigo-700 dark:hover:bg-gray-600 dark:text-indigo-600 px-5 py-2 text-sm">Back</button>
+            <button class="transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm">Edit Profile</button>
+        </div> {% endcomment %}
+      </div>
+    </div>
+    <!-- Code block ends -->
+
+    {% block top %}{% endblock %}
+
+    <div class="container mx-auto px-5 sm:px-0" >
+      {% comment %} <nav class="prose text-gray-600 mx-auto text-md border-solid border-b-2 border-gray-500" >
       {% block breadcrumbs %}{% endblock %}
-      </nav>
+      </nav> {% endcomment %}
       {% block content %}{% endblock %}
     </div>
 
     {% include 'includes/footer.html' %}
+
+  </div>
+
+  <!-- bottom nav for mobile -->
+  <div class="relative md:hidden" >
+  {% comment %} class="fixed bottom-0 left-0 right-0" {% endcomment %}
+    <div
+      class="fixed bottom-0 left-0 right-0 bg-slate-800 prose z-10 py-4 px-5 shadow" >
+
+      <div class="flex" >
+        {% header_items_dict as items %}
+        {% for item in items %}
+            <a href="{% url item.slug %}"
+              title="{{item.alt_text}}"
+              class="no-underline flex-auto text-white hover:text-grey-600" >
+              <img
+                class="icon icon-tabler icon-tabler-grid mr-1 "
+                style="margin-top:2px;"
+                align="left"
+                src="{{ item.icon_dark }}"
+                alt="{{ item.title }}" />
+              {{item.title}}
+            </a>
+        {% endfor %}
+      </div>
+    </div>
   </div>
 
 
@@ -124,6 +192,11 @@ Vue.createApp(Search).mount('#app')
 document.addEventListener('keyup', function (event) {
   if (event.key === '/') {
       var element = document.getElementById('searchbox').focus()
+  }
+  if (event.key === '/esc') {
+      var element = document.getElementById('searchbox')
+      element.focus()
+      element.value = ''
   }
 });
 </script>

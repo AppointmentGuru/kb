@@ -150,3 +150,9 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 ## Cust env:
 MELIA_URL = env("MELIA_URL")
 MELIA_API_KEY = env("MELIA_API_KEY")
+
+BRAND = {
+    "logo": "https://ik.imagekit.io/appointmentguru/brand/practitioner_icon_170x170.png",
+    "name": "AppointmentGuru",
+    "tagline": "AppointmentGuru. Be better at admin, spend less time doing it"
+}

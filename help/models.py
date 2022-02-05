@@ -48,8 +48,13 @@ class Article(models.Model):
     summary = models.TextField(null=True, blank=True)
     content = models.TextField(null=True, blank=True)
 
+    video_thumbnail = models.URLField(null=True, blank=True)
     video_url = models.URLField(null=True, blank=True)
     video_embed_url = models.URLField(null=True, blank=True)
+
+    mobile_video_thumbnail = models.URLField(null=True, blank=True)
+    mobile_video_url = models.URLField(null=True, blank=True)
+    mobile_video_embed_url = models.URLField(null=True, blank=True)
 
     tags = ArrayField(
         models.CharField(max_length=100, blank=True), null=True, blank=True
@@ -68,3 +73,45 @@ class Article(models.Model):
 
     created_date = models.DateTimeField(auto_now_add=True, db_index=True)
     modified_date = models.DateTimeField(auto_now=True, db_index=True)
+
+
+class CourseArticle(models.Model):
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['course', 'article'], name='unique_course_article')
+        ]
+        ordering = ['order',]
+
+    course = models.ForeignKey("Course", on_delete=models.CASCADE)
+    article = models.ForeignKey("Article", on_delete=models.CASCADE)
+
+    order = models.PositiveIntegerField(default=1000)
+
+
+class Course(models.Model):
+
+    def __str__(self):
+        return self.title
+
+    title = models.CharField(max_length=144, null=True, blank=False)
+    slug = models.SlugField(null=True, blank=False, max_length=144, unique=True)
+    icon = models.URLField(null=True, blank=True)
+    cover_image = models.URLField(null=True, blank=True)
+    summary = models.TextField(null=True, blank=True)
+    content = models.TextField(null=True, blank=True)
+
+    # chapters
+    articles = models.ManyToManyField(Article, blank=True, through=CourseArticle)
+
+    published = models.BooleanField(default=False, db_index=True)
+    order = models.PositiveIntegerField(default=1000, db_index=True)
+    upvotes = models.PositiveBigIntegerField(default=0, db_index=True)
+    downvotes = models.PositiveBigIntegerField(default=0, db_index=True)
+
+    created_date = models.DateTimeField(auto_now_add=True, db_index=True)
+    modified_date = models.DateTimeField(auto_now=True, db_index=True)
+
+    @property
+    def chapters(self):
+        return self.coursearticle_set.all().order_by('order')
