@@ -20,6 +20,9 @@ def create_directory(dir):
 
 
 def write_file(filename, content):
+    if not filename.startswith("/"):
+        filename = f"/{filename}"
+
     with open(f"dist{filename}", 'wb') as f:
         f.write(content)
 
@@ -62,21 +65,21 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         p = Client().get('/')
-        write_file("index.html", p.content)
+        write_file("/index.html", p.content)
 
-        print("============")
-        print("Tags")
-        print("============")
-        build_section("tags")
+        # print("============")
+        # print("Tags")
+        # print("============")
+        # build_section("tags")
 
-        # sections:
-        for title, slug, summary in header_items():
-            print("============")
-            print(title)
-            print("============")
-            build_section(slug)
+        # # sections:
+        # for title, slug, summary in header_items():
+        #     print("============")
+        #     print(title)
+        #     print("============")
+        #     build_section(slug)
 
-        course_chapters()
+        # course_chapters()
 
         articles = Article.objects.all()
 
@@ -88,6 +91,6 @@ class Command(BaseCommand):
             try:
                 url = reverse("article", args=(article.slug,))
                 p = Client().get(url)
-                write_file(f"{article.slug}.html", p.content)
+                write_file(url, p.content)
             except NoReverseMatch:
                 print(f"Invalid slug: {article.slug}")
