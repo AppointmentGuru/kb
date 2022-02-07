@@ -17,9 +17,9 @@
 
 {% block content %}
 <article class="prose ma-10" style="margin-left:auto;margin-right:auto;" >
-    <h1 class="hidden" >
+    {% comment %} <h1 class="hidden" >
         {{article.title}}
-    </h1>
+    </h1> {% endcomment %}
     <blockquote class="my-4 text-xl text-gray-700" >{{article.summary}}</blockquote>
 
     {% if article.video_embed_url %}

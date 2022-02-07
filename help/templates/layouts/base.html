@@ -57,9 +57,12 @@
         class="block p-6 shadow-md hover:shadow-xl bg-white max-w-sm ma-4 grid-cols-1 md:grid-cols-4 full-width">
         <a :href="`/${hit.slug}.html`" :title="hit.title" class="no-underline" >
           <h5 class="text-base text-black-800" >
-            #<span v-html="hit.id" />.
-            <span v-html="hit._formatted.title" />
+            {% comment %} #<span v-html="hit.id" />. {% endcomment %}
+            # <span v-html="hit.id" ></span>.
+            <span v-html="hit._formatted.title" ></span>
+
           </h5>
+          {% comment %} <pre v-html="hit._formatted.title" /> {% endcomment %}
           <p class="text-gray-700 text-sm"
             v-html="hit._formatted.summary" ></p>
         </a>

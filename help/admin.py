@@ -63,7 +63,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
     actions = [make_faq, publish, unpublish, mark_for_update]
 
-    inlines = [ArticleCategoryInline]
+    inlines = [ArticleCategoryInline, ArticleCourseInline]
 
     def categories_list(self, obj):
         return ", ".join([c.title for c in obj.categories.all()])

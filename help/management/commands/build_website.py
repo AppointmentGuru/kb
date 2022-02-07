@@ -50,7 +50,7 @@ def build_section(slug, with_index=True):
             write_file(path, page.content)
 
 def course_chapters():
-    chapters = CourseArticle.objects.all()
+    chapters = CourseArticle.objects.filter(published=True)
     for chapter in chapters:
         create_directory(f"./dist/courses/{chapter.course.slug}/")
         path = reverse("chapter", args=(chapter.course.slug, chapter.article.slug,))
@@ -67,19 +67,19 @@ class Command(BaseCommand):
         p = Client().get('/')
         write_file("/index.html", p.content)
 
-        # print("============")
-        # print("Tags")
-        # print("============")
-        # build_section("tags")
+        print("============")
+        print("Tags")
+        print("============")
+        build_section("tags")
 
-        # # sections:
-        # for title, slug, summary in header_items():
-        #     print("============")
-        #     print(title)
-        #     print("============")
-        #     build_section(slug)
+        # sections:
+        for title, slug, summary in header_items():
+            print("============")
+            print(title)
+            print("============")
+            build_section(slug)
 
-        # course_chapters()
+        course_chapters()
 
         articles = Article.objects.all()
 

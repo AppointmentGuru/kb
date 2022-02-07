@@ -45,8 +45,10 @@ class Article(models.Model):
     title = models.CharField(max_length=144, null=True, blank=False)
     slug = models.SlugField(null=True, blank=False, max_length=144, unique=True)
     cover_image = models.URLField(null=True, blank=True)
+    keywords = models.TextField(null=True, blank=True, help_text="Meta Keywords for SEO")
     summary = models.TextField(null=True, blank=True)
     content = models.TextField(null=True, blank=True)
+    discussion = models.TextField(null=True, blank=True, help_text="Admin only field for discussion on the article")
 
     video_thumbnail = models.URLField(null=True, blank=True)
     video_url = models.URLField(null=True, blank=True)
@@ -87,6 +89,7 @@ class CourseArticle(models.Model):
     article = models.ForeignKey("Article", on_delete=models.CASCADE)
 
     order = models.PositiveIntegerField(default=1000)
+    published = models.BooleanField(default=True)
 
 
 class Course(models.Model):
@@ -99,6 +102,7 @@ class Course(models.Model):
     icon = models.URLField(null=True, blank=True)
     cover_image = models.URLField(null=True, blank=True)
     summary = models.TextField(null=True, blank=True)
+    keywords = models.TextField(null=True, blank=True, help_text="Meta Keywords for SEO")
     content = models.TextField(null=True, blank=True)
 
     # chapters
@@ -114,4 +118,4 @@ class Course(models.Model):
 
     @property
     def chapters(self):
-        return self.coursearticle_set.all().order_by('order')
+        return self.coursearticle_set.filter(published=True).order_by('order')
