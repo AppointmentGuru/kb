@@ -18,7 +18,15 @@
         </div>
       </article>
 
+      <br/><br/><br/>
+      <center>
+        <a href="{% url "chapter" course.slug first_lesson.slug %}"
+          class="rounded-full bg-sky-500 mt-10 p-5 text-slate-50"
+          title="Start the course {{course.title}}" >Start the first lesson</a>
+      </center>
     </div>
+
+
     <!-- ... -->
     <div class="order-first md:order-last rounded shadow-md p-5 prose w-full h-full bg-gray-100" >
 

@@ -65,6 +65,8 @@ class Article(models.Model):
         models.CharField(max_length=250, blank=True), null=True, blank=True, help_text="Specific phrases someone might type to find this article"
     )
 
+    related_articles = models.ManyToManyField('Article', blank=True)
+
     order = models.PositiveIntegerField(default=1000, db_index=True)
     faq = models.BooleanField(default=False, db_index=True)
     published = models.BooleanField(default=False, db_index=True)

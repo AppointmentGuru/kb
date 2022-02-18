@@ -62,26 +62,34 @@ class Command(BaseCommand):
 
     help = "Build a static version of the website"
 
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--since',
+            help='Skip top level pages. Only update articles modified after the provided date',
+        )
+
     def handle(self, *args, **options):
 
-        p = Client().get('/')
-        write_file("/index.html", p.content)
-
-        print("============")
-        print("Tags")
-        print("============")
-        build_section("tags")
-
-        # sections:
-        for title, slug, summary in header_items():
-            print("============")
-            print(title)
-            print("============")
-            build_section(slug)
-
-        course_chapters()
-
         articles = Article.objects.all()
+        if since := options.get("since"):
+            articles = articles.filter(modified_date__date__gte=since)
+        else:
+            p = Client().get('/')
+            write_file("/index.html", p.content)
+
+            print("============")
+            print("Tags")
+            print("============")
+            build_section("tags")
+
+            # sections:
+            for title, slug, summary in header_items():
+                print("============")
+                print(title)
+                print("============")
+                build_section(slug)
+
+            course_chapters()
 
         print("============")
         print("Articles")

@@ -13,14 +13,25 @@
     {% endfor %}
 {% endif %}
 / {{article.title}}
+
+<div class="text-xs">
+Created: {{article.created_date}} Last updated {{article.modified_date}}
+</div>
 {% endblock %}
 
 {% block content %}
 <article class="prose ma-10" style="margin-left:auto;margin-right:auto;" >
-    {% comment %} <h1 class="hidden" >
+    <h1 class="hidden" >
         {{article.title}}
-    </h1> {% endcomment %}
+    </h1>
     <blockquote class="my-4 text-xl text-gray-700" >{{article.summary}}</blockquote>
+
+    {% if article.update_required %}
+    <div class="text-xs bg-orange-200 p-2" >
+    <strong>Note</strong> This article has been flagged as needing an update.<br/>
+    The information contained in this article may be incomplete or relate to an older version of AppointmentGuru
+    </div>
+    {% endif %}
 
     {% if article.video_embed_url %}
     <div
