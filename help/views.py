@@ -3,6 +3,35 @@ from django.views.generic.edit import UpdateView
 from django.conf import settings
 from help.models import Article, Category, Course
 
+LETTERS = [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h",
+    "i",
+    "j",
+    "k",
+    "l",
+    "n",
+    "m",
+    "n",
+    "o",
+    "p",
+    "q",
+    "r",
+    "s",
+    "t",
+    "u",
+    "v",
+    "w",
+    "x",
+    "y",
+    "z",
+]
 
 def index(request):
     context = {
@@ -11,6 +40,33 @@ def index(request):
         "page_title": "AppointmentGuru Help Center",
     }
     return render(request, "index.html", context)
+
+
+def articles(request, slug):
+    articles = Article.objects.filter(published=True, title__istartswith=slug).order_by("title")
+
+    page_title = f"Articles starting with the letter {slug.upper()}"
+    group_by = None
+    if slug == "recently-updated":
+        page_title = "Recently updated articles"
+        group_by = "date_modified"
+        articles = Article.objects.filter(published=True).order_by("-modified_date")[:15]
+
+    context = {
+        "page_title": page_title,
+        "articles": articles,
+        "letters": LETTERS,
+        "slug": slug,
+        "group_by": group_by,
+        "sub_pages": LETTERS + ["recently-updated"],
+        "empty_text": f"No articles found starting with the letter {slug.upper()}",
+        "builder_config": {
+            "item_context_key": "sub_pages",  # the key to use to find sub-pages from this pages context
+            "item_key": "slug",  # for each item found in context[item_context_key], what attr do we pass to reverse()
+            "page_name": "articles_index",  # the reverse name.
+        },
+    }
+    return render(request, "help/article_index.html", context)
 
 
 def courses(request):

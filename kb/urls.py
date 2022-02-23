@@ -23,6 +23,8 @@ urlpatterns = [
     path("topics/", views.topics, name="topics"),
     path("topics/<slug:slug>.html", views.topic, name="topic"),
 
+    path("index/<slug:slug>.html", views.articles, name="articles_index"),
+
     # path("courses/<slug:slug>/<chapter:slug>.html", views.course, name="chapter"),
     path("courses/<slug:slug>/<slug:chapter>.html", views.chapter, name="chapter"),
     path("courses/<slug:slug>.html", views.course, name="courses"),

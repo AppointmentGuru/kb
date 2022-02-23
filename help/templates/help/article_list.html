@@ -1,8 +1,9 @@
 {% extends 'layouts/base.html' %}
 {% load md2 %}
+{% load kb %}
 
 {% block breadcrumbs %}
-<a href="{% url "index" %}" title="AppointmentGuru Knowledgebase home" >Home</a> /
+<a href="{% url "index" %}" title="AppointmentGuru Knowledgebase home" class="mr-2" >Home</a> /
 {{page_title}}
 {% endblock %}
 
@@ -14,14 +15,23 @@
     <div class="mt-2 text-gray-600" >
         <ul>
             {% for article in articles %}
+            {% if group_by %}
+
+                <h3>{% ifchanged article|get_attr:"modified_date"|date %} {{ article|get_attr:"modified_date"|date }} {% endifchanged %}</h3>
+                <hr/>
+            {% endif %}
             <li>
                 <h3><a href="{% url "article" article.slug %}" title="{{article.title}}" >
                     {{article.title}}</a>
                 </h3>
                 <p class="text-sm">{{article.summary}}</p>
             </li>
+            {% empty %}
+            {{ empty_text|default:"No articles found" }}
             {% endfor %}
         <ul>
     </div>
+
+    {% block after %}{% endblock %}
 </article>
 {% endblock %}

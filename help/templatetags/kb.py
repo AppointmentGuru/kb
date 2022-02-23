@@ -61,3 +61,10 @@ def articles_by_tag(tag):
 @register.simple_tag
 def get_brand():
     return settings.BRAND
+
+
+@register.filter(name='get_attr')
+def get_attr(value, field_name):
+    if isinstance(value, dict):
+        return value.get(field_name)
+    return getattr(value, field_name)

@@ -1,6 +1,12 @@
 # kb
 
-A knowledgebase
+A knowledgebase. A simple Django website with the ability to build out to a static website which can be deployed to netlify
+
+## Commands
+
+* **Build static website:** `pipenv run python manage.py build_website`
+* **Build search index:** `pipenv run python manage.py build_index`
+* **Deploy to netlify:** (after building): `ntl deploy --prod`
 
 ## Get started
 
