@@ -40,6 +40,9 @@ class ArticleCourseInline(admin.TabularInline):
 
 
 class ArticleAdmin(admin.ModelAdmin):
+    raw_id_fields = (
+        "related_articles",
+    )
     list_display = (
         "id",
         "title",

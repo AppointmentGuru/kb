@@ -47,8 +47,17 @@ Created: {{article.created_date}} Last updated {{article.modified_date}}
 
     <div class="mt-2 text-gray-600" >{{article.content|default:""|markdown}}</div>
 
-    <div>
+    <div class="mt-10" >
+    {% if article.related_articles.count > 0 %}
+        <h3>Related articles</h3>
+        <ul>
+            {% for article in article.related_articles.all %}<li>
+            <a href="{% url "article" article.slug %}" title="{{article.title}}" >{{article.title}}</a>
+            </li>{% endfor %}
+        </ul>
+    {% endif %}
     {% for tag in article.tags %}
+        {% if forloop.first %}Tags:{% endif %}
         <a href="{% url "tags" tag|slugify %}" title="{{tag}}" class="mr-2 text-xs" >{{tag|upper}}<a/>{% endfor %}
     </div>
 </article>
