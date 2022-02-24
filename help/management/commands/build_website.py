@@ -6,9 +6,14 @@ from django.urls import reverse
 from help.templatetags.kb import header_items
 import os
 from django.test.utils import setup_test_environment
+from django.conf import settings
 
 # needed so we can read template context
 setup_test_environment()
+
+
+def start_pages():
+    return settings.START_PAGES
 
 
 def create_directory(dir):
@@ -57,6 +62,11 @@ def course_chapters():
         page = Client().get(path)
         write_file(path, page.content)
 
+def generate_sitemap():
+    path = reverse("sitemap")
+    page = Client().get(path)
+    write_file("sitemap.xml", page.content)
+
 
 class Command(BaseCommand):
 
@@ -69,6 +79,8 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+
+        generate_sitemap()
 
         articles = Article.objects.all()
         if since := options.get("since"):
@@ -83,7 +95,7 @@ class Command(BaseCommand):
             build_section("tags")
 
             # sections:
-            for title, slug, summary in header_items():
+            for title, slug, summary in start_pages():
                 print("============")
                 print(title)
                 print("============")

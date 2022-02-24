@@ -152,7 +152,16 @@ MELIA_URL = env("MELIA_URL")
 MELIA_API_KEY = env("MELIA_API_KEY")
 
 BRAND = {
+    "base_url": "https://help.appointmentguru.co",
     "logo": "https://ik.imagekit.io/appointmentguru/brand/practitioner_icon_170x170.png",
     "name": "AppointmentGuru",
     "tagline": "AppointmentGuru. Be better at admin, spend less time doing it"
 }
+GA_PROPERTY_ID=env("GA_PROPERTY_ID")
+START_PAGES = [
+    ("Index", "index", "Index of all help articles"),
+    ("Courses", "courses", "Courses to help you get up to speed with AppointmentGuru"),
+    ("Topics", "topics", "Courses to help you get up to speed with AppointmentGuru"),
+    ("FAQ", "faqs", "Courses to help you get up to speed with AppointmentGuru"),
+    ("Videos", "videos", "Courses to help you get up to speed with AppointmentGuru"),
+]

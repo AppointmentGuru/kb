@@ -3,7 +3,7 @@
 {% load kb %}
 
 {% block breadcrumbs %}
-<a href="{% url "index" %}" title="AppointmentGuru Knowledgebase home" class="mr-2" >Home</a> /
+<a href="{% url "home" %}" title="AppointmentGuru Knowledgebase home" class="mr-2" >Home</a> /
 {{page_title}}
 {% endblock %}
 
@@ -24,7 +24,7 @@
                 <h3><a href="{% url "article" article.slug %}" title="{{article.title}}" >
                     {{article.title}}</a>
                 </h3>
-                <p class="text-sm">{{article.summary}}</p>
+                <p class="text-sm">{{article.summary|markdown}}</p>
             </li>
             {% empty %}
             {{ empty_text|default:"No articles found" }}

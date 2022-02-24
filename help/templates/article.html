@@ -2,7 +2,7 @@
 {% load md2 %}
 
 {% block breadcrumbs %}
-<a href="{% url "index" %}" title="AppointmentGuru Knowledgebase home" class="mr-2" >Home</a> /
+<a href="{% url "home" %}" title="AppointmentGuru Knowledgebase home" class="mr-2" >Home</a> /
 
 {% if article.categories.count > 0 %}
     <a href = "{% url "topics" %}" title="Topics" class="mr-2" >Topics</a>

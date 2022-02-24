@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title >{{page_title}} | AppointmentGuru</title>
+    <title >{{page_title}}{% if page_title %} | {% endif %}AppointmentGuru</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
     <script src="https://unpkg.com/vue@3.2.27/dist/vue.global.js"></script>
 
@@ -29,6 +29,16 @@
       pre { background-color: #f1f1f1; }
       #search-results em { background-color: #FFFF8D; }
     </style>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1ZYWYJP5Q4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', '{% setting "GA_PROPERTY_ID" %}');
+    </script>
   </head>
 
   <body >

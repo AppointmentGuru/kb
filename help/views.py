@@ -1,7 +1,9 @@
+import re
 from django.shortcuts import get_object_or_404, render
 from django.views.generic.edit import UpdateView
 from django.conf import settings
 from help.models import Article, Category, Course
+from django.urls import reverse
 
 LETTERS = [
     "a",
@@ -33,6 +35,12 @@ LETTERS = [
     "z",
 ]
 
+class Page:
+    slug=None
+
+    def __init__(self, slug):
+        self.slug = slug
+
 def index(request):
     context = {
         "MELIA_API_URL": settings.MELIA_URL,
@@ -42,15 +50,23 @@ def index(request):
     return render(request, "index.html", context)
 
 
-def articles(request, slug):
-    articles = Article.objects.filter(published=True, title__istartswith=slug).order_by("title")
-
-    page_title = f"Articles starting with the letter {slug.upper()}"
+def articles(request, slug="a"):
+    articles = Article.objects.filter(published=True)
+    page_title = "Index of all help pages"
     group_by = None
+
     if slug == "recently-updated":
         page_title = "Recently updated articles"
         group_by = "date_modified"
-        articles = Article.objects.filter(published=True).order_by("-modified_date")[:15]
+        articles = articles.order_by("-modified_date")[:15]
+    elif slug:
+        articles = articles.filter(title__istartswith=slug).order_by("title")
+        page_title = f"Articles starting with the letter {slug.upper()}"
+    else:
+        articles = Article.objects.none()
+
+    sub_pages = [Page(letter) for letter in LETTERS]
+    sub_pages.append(Page("recently-updated"))
 
     context = {
         "page_title": page_title,
@@ -58,12 +74,12 @@ def articles(request, slug):
         "letters": LETTERS,
         "slug": slug,
         "group_by": group_by,
-        "sub_pages": LETTERS + ["recently-updated"],
+        "sub_pages": sub_pages,
         "empty_text": f"No articles found starting with the letter {slug.upper()}",
         "builder_config": {
             "item_context_key": "sub_pages",  # the key to use to find sub-pages from this pages context
             "item_key": "slug",  # for each item found in context[item_context_key], what attr do we pass to reverse()
-            "page_name": "articles_index",  # the reverse name.
+            "page_name": "index",  # the reverse name.
         },
     }
     return render(request, "help/article_index.html", context)
@@ -209,6 +225,16 @@ def article(request, slug=None):
     return render(request, "article.html", context)
 
 
-class AuthorUpdateView(UpdateView):
-    model = Article
-    fields = ["title", "summary", "content"]
+def sitemap(request):
+
+    top_level_urls = {reverse(slug) for title, slug, desc in settings.START_PAGES}
+    articles = Article.objects.filter(published=True).order_by('-modified_date')
+    last_modified_date = articles.first().modified_date
+    base = settings.BRAND.get("base_url")
+    context = {
+        "top_level_urls": top_level_urls,
+        "last_modified_date": last_modified_date,
+        "articles": articles,
+        "base": base,
+    }
+    return render(request, "help/sitemap.xml", context, content_type='text/xml')

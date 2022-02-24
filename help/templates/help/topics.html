@@ -2,7 +2,7 @@
 {% load md2 %}
 
 {% block breadcrumbs %}
-<a href="{% url "index" %}" title="AppointmentGuru Knowledgebase home" class="mr-2" >Home</a> /
+<a href="{% url "home" %}" title="AppointmentGuru Knowledgebase home" class="mr-2" >Home</a> /
 Topics
 {% endblock %}
 
@@ -18,7 +18,7 @@ Topics
                 <h3><a href="{% url "topic" topic.slug %}" title="{{topic.title}}" >
                     {{topic.title}}</a>
                 </h3>
-                <p>{{topic.description}}</p>
+                <p>{{topic.description|markdown}}</p>
 
                 <div>
                 {% for article in topic.featured_articles %}

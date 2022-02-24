@@ -1,13 +1,13 @@
 {% extends 'help/article_list.html' %}
 
 {% block breadcrumbs %}
-<a href="{% url "index" %}" title="AppointmentGuru Knowledgebase home" class="mr-2" >Home</a> /
+<a href="{% url "home" %}" title="AppointmentGuru Knowledgebase home" class="mr-2" >Home</a> /
 {{page_title}}
 
 <div class="text-center" >
 {% for letter in letters %}
 <a {% if slug == letter %}class="text-xl bold no-underline"{% endif %}
-    href="{% url "articles_index" letter %}" title="Help articles starting with the letter {{letter}}" >{{letter|upper}}</a>
+    href="{% url "index" letter %}" title="Help articles starting with the letter {{letter}}" >{{letter|upper}}</a>
 {% if not forloop.last %} | {% endif %}
 {% endfor %}
 </div>
@@ -17,7 +17,7 @@
 <hr/>
 <ul>
     <li>
-        <a href="{% url "articles_index" "recently-updated" %}"
+        <a href="{% url "index" "recently-updated" %}"
            class="text-sm"
            title="Recently updated help articles"  >
             Show recently updated articles

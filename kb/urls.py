@@ -23,7 +23,8 @@ urlpatterns = [
     path("topics/", views.topics, name="topics"),
     path("topics/<slug:slug>.html", views.topic, name="topic"),
 
-    path("index/<slug:slug>.html", views.articles, name="articles_index"),
+    path("index/", views.articles, name="index"),
+    path("index/<slug:slug>.html", views.articles, name="index"),
 
     # path("courses/<slug:slug>/<chapter:slug>.html", views.course, name="chapter"),
     path("courses/<slug:slug>/<slug:chapter>.html", views.chapter, name="chapter"),
@@ -38,8 +39,6 @@ urlpatterns = [
     path("videos/<slug:slug>.html", views.videos, name="videos"),
 
     path("<slug:slug>.html", views.article, name="article"),
-    path(
-        "article/edit/<int:pk>/", views.AuthorUpdateView.as_view(), name="edit_article"
-    ),
-    path("", views.index, name="index"),
+    path("sitemap.xml", views.sitemap, name="sitemap"),
+    path("", views.index, name="home"),
 ]

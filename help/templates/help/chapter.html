@@ -2,7 +2,7 @@
 {% load md2 %}
 
 {% block breadcrumbs %}
-<a href="{% url "index" %}" title="AppointmentGuru Help Center" class="mr-2" >Home</a>&nbsp;/
+<a href="{% url "home" %}" title="AppointmentGuru Help Center" class="mr-2" >Home</a>&nbsp;/
 <a href="{% url "courses" %}" title="AppointmentGuru courses" class="mx-2" >Courses</a>&nbsp;/
 <a href="{% url "courses" course.slug %}"
   title="{{ course.title }}"
