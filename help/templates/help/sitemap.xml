@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    {% for url in top_level_urls %}
+    <url>
+        <loc>{{base}}{{url}}</loc>
+        <lastmod>{{ last_modified_date|date:"c" }}</lastmod>
+    </url>
+    {% endfor %}
+    {% for article in articles %}
+    <url>
+        <loc>{{base}}{{article.get_absolute_url}}</loc>
+        <lastmod>{{ article.modified_date|date:"c" }}</lastmod>
+    </url>
+    {% endfor %}
+</urlset>

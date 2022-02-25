@@ -1,3 +1,4 @@
+{% load static tailwind_tags %}
 {% load kb %}
 <!DOCTYPE html>
 <html lang="en">
@@ -5,8 +6,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title >{{page_title}}{% if page_title %} | {% endif %}AppointmentGuru</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
-    <script src="https://unpkg.com/vue@3.2.27/dist/vue.global.js"></script>
+
+    {% tailwind_css %}
+    {% comment %} <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script> {% endcomment %}
+    <script src="https://unpkg.com/vue@3.2.27/dist/vue.global.prod.js"></script>
 
     <meta content="width=device-width,initial-scale=1" name="viewport">
     <meta content="{{page_keywords}}" name="keywords" >

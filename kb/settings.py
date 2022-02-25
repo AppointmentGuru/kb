@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     # 3rd party:
     "rest_framework",
     "django_markdown2",
+    "tailwind",
+    "theme",
     # apps:
     "help",
 ]
@@ -150,6 +152,12 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 ## Cust env:
 MELIA_URL = env("MELIA_URL")
 MELIA_API_KEY = env("MELIA_API_KEY")
+
+TAILWIND_APP_NAME = 'theme'
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
 
 BRAND = {
     "base_url": "https://help.appointmentguru.co",

@@ -13,7 +13,7 @@ django-environ = "*"
 whitenoise = "*"
 gunicorn = "*"
 django-markdown2 = "*"
-
+django-tailwind = "*"
 [dev-packages]
 ipython = "*"
 ipdb = "*"
