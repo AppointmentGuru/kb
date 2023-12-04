@@ -1,5 +1,15 @@
 # kb
 
+## Getting started
+
+Install `pipenv`
+
+```
+pip install pipenv
+```
+
+Install requirements: `pipenv install`
+
 A knowledgebase. A simple Django website with the ability to build out to a static website which can be deployed to netlify
 
 ## Commands

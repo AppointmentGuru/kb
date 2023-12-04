@@ -18,12 +18,11 @@ def u(path):
 
 headers = {
     "Content-Type": "application/json",
-    "X-Meili-API-Key": key,
+    "Authorization": f"Bearer {key}",
 }
 
 
 class Command(BaseCommand):
-
     help = "Build Meliasearch index"
 
     def handle(self, *args, **options):
